@@ -1,0 +1,27 @@
+### Get all blogs
+GET http://localhost:3001/api/blogs
+
+### Create a new blog
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "author": "Robert C. Martin",
+  "url": "https://blog.cleancoder.com",
+  "title": "Clean Code",
+  "likes": 0
+}
+
+### Create another blog
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "author": "Dan Abramov",
+  "url": "https://overreacted.io",
+  "title": "Things I Don’t Know as of 2018",
+  "likes": 5
+}
+
+### Delete a blog (change id if needed)
+DELETE http://localhost:3001/api/blogs/1
