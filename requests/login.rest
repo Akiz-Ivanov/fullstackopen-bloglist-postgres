@@ -1,0 +1,23 @@
+### Login
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "testUser2@gmail.com",
+  "password": "secret"
+}
+
+### Create blog with token (paste token from login response)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer <token_here>
+
+{
+  "title": "Token test blog",
+  "author": "Test Author",
+  "url": "https://test.com"
+}
+
+### Delete a blog (change id if needed, paste token from login)
+DELETE http://localhost:3001/api/blogs/4
+Authorization: Bearer <token>

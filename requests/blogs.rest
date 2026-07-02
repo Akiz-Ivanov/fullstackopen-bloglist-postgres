@@ -40,5 +40,6 @@ Content-Type: application/json
   "title": "No URL blog"
 }
 
-### Delete a blog (change id if needed)
+### Delete a blog (change id if needed), paste token from login
 DELETE http://localhost:3001/api/blogs/1
+Authorization: Bearer <token>

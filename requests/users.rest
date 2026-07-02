@@ -18,15 +18,6 @@ Content-Type: application/json
   "name": "ChangedUser"
 }
 
-### Login
-POST http://localhost:3001/api/login
-Content-Type: application/json
-
-{
-  "username": "testUser",
-  "password": "secret"
-}
-
 ### Test error handler - username is not a valid email
 POST http://localhost:3001/api/users
 Content-Type: application/json
