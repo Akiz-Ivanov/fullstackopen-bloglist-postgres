@@ -1,0 +1,112 @@
+### Setup - Login first
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "testUser@gmail.com",
+  "password": "secret"
+}
+
+### Setup - Add blogs with varied data for testing search/ordering
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3ODMxNjgwNzN9.tXieiqDG4Y458KZYnxfZCA1aScXHNo0ExsEqKaQG20Y
+
+{
+  "title": "React patterns",
+  "author": "Michael Chan",
+  "url": "https://reactpatterns.com"
+}
+
+###
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3ODMxNjgwNzN9.tXieiqDG4Y458KZYnxfZCA1aScXHNo0ExsEqKaQG20Y
+
+{
+  "title": "Go To Statement Considered Harmful",
+  "author": "Edsger W. Dijkstra",
+  "url": "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf"
+}
+
+###
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3ODMxNjgwNzN9.tXieiqDG4Y458KZYnxfZCA1aScXHNo0ExsEqKaQG20Y
+
+{
+  "title": "Canonical string reduction",
+  "author": "Edsger W. Dijkstra",
+  "url": "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html"
+}
+
+### Give some likes to existing blogs for ordering test
+PUT http://localhost:3001/api/blogs/2
+Content-Type: application/json
+
+{
+  "likes": 12
+}
+
+###
+PUT http://localhost:3001/api/blogs/8
+Content-Type: application/json
+
+{
+  "likes": 10
+}
+
+###
+PUT http://localhost:3001/api/blogs/7
+Content-Type: application/json
+
+{
+  "likes": 7
+}
+
+### =====================
+### Exercise 13 - Search by title (case-insensitive)
+### =====================
+
+### Should return blogs with "react" in title
+GET http://localhost:3001/api/blogs?search=react
+
+###
+### Should return blogs with "REACT" in title (case-insensitive check)
+GET http://localhost:3001/api/blogs?search=REACT
+
+###
+### Should return empty array (no match)
+GET http://localhost:3001/api/blogs?search=nonexistentterm
+
+###
+### Should return all blogs (no search param)
+GET http://localhost:3001/api/blogs
+
+### =====================
+### Exercise 14 - Search by title OR author
+### =====================
+
+### Should return blogs where author contains "dijkstra" (case-insensitive)
+GET http://localhost:3001/api/blogs?search=dijkstra
+
+###
+### Should return blogs matching title or author containing "chan"
+GET http://localhost:3001/api/blogs?search=chan
+
+### =====================
+### Exercise 15 - Ordering by likes descending
+### =====================
+
+### All blogs should come back ordered by likes DESC
+GET http://localhost:3001/api/blogs
+
+### Search + ordering combined (results should still be ordered by likes)
+GET http://localhost:3001/api/blogs?search=dijkstra
+
+### =====================
+### Exercise 16 - Authors aggregation
+### =====================
+
+### Should return each author with blog count and total likes
+GET http://localhost:3001/api/authors
