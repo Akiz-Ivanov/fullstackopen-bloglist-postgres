@@ -1,0 +1,53 @@
+### Login
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "testUser1@gmail.com",
+  "password": "secret"
+}
+
+### Create blog with valid session
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "title": "Session test blog",
+  "author": "Test",
+  "url": "https://test.com"
+}
+
+### Logout
+DELETE http://localhost:3001/api/logout
+Authorization: Bearer <token>
+
+### Try to create blog after logout (should get 401)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "title": "Should fail",
+  "author": "Test",
+  "url": "https://test.com"
+}
+
+### Login again to get new token
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "testUser1@gmail.com",
+  "password": "secret"
+}
+
+### Manually disable user in psql first, then try login (should get 401)
+### UPDATE users SET disabled=true WHERE username='testUser@gmail.com';
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "testUser1@gmail.com",
+  "password": "secret"
+}
