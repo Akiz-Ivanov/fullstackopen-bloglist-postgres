@@ -53,7 +53,7 @@ Authorization: Bearer <your_token>
   "title": "Old blog",
   "author": "Someone",
   "url": "https://test.com",
-  "yearWritten": 1990
+  "year": 1990
 }
 
 ###  Should fail - year in future
@@ -65,7 +65,7 @@ Authorization: Bearer <your_token>
   "title": "Future blog",
   "author": "Someone",
   "url": "https://test.com",
-  "yearWritten": 2099
+  "year": 2099
 }
 
 ### Should succeed
@@ -77,5 +77,5 @@ Authorization: Bearer <your_token>
   "title": "Valid blog",
   "author": "Someone",
   "url": "https://test.com",
-  "yearWritten": 2024
+  "year": 2024
 }

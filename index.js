@@ -1,14 +1,17 @@
 const express = require('express')
 const app = express()
-const { Blog, User } = require('./models')
+const { Blog, User, ReadingList } = require('./models')
 
 const { PORT } = require('./util/config')
 const { connectToDatabase } = require('./util/db')
 
-const blogRouter = require('./controllers/blogs')
-const userRouter = require('./controllers/users')
-const loginRouter = require('./controllers/login')
-const authorRouter = require('./controllers/authors')
+const {
+  blogRouter,
+  userRouter,
+  loginRouter,
+  authorRouter,
+  readingListRouter,
+} = require("./controllers")
 
 app.use(express.json())
 
@@ -16,15 +19,12 @@ app.use('/api/blogs', blogRouter)
 app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/authors', authorRouter)
+app.use('/api/readinglists', readingListRouter)
 
 app.post('/api/reset', async (req, res) => {
-  await Blog.destroy({
-    where: {}
-  })
-
-  await User.destroy({
-    where: {}
-  })
+  await Blog.destroy({ where: {} })
+  await User.destroy({ where: {} })
+  await ReadingList.destroy({ where: {} })
 
   res.status(204).end()
 })
