@@ -11,6 +11,12 @@ Content-Type: application/json
 ### Get user with reading list
 GET http://localhost:3001/api/users/1
 
+### Get user with read true
+GET http://localhost:3001/api/users/1?read=true
+
+### Get user with read false
+GET http://localhost:3001/api/users/1?read=false
+
 ### Mark blog as read (replace :id with reading list entry id)
 PUT http://localhost:3001/api/readinglists/1
 Content-Type: application/json
