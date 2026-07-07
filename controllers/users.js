@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
         exclude: ['userId', 'createdAt', 'updatedAt']
       },
       through: {
-          attributes: []
+          attributes: ['read', 'id']
       }
     }
   })
@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
   if (!user) {
     return res.status(404).json({ error: 'user not found' })
   }
-  
+
   res.json(user)
 })
 
