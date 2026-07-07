@@ -10,3 +10,32 @@ Content-Type: application/json
 
 ### Get user with reading list
 GET http://localhost:3001/api/users/1
+
+### Mark blog as read (replace :id with reading list entry id)
+PUT http://localhost:3001/api/readinglists/1
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "read": true
+}
+
+### Verify it changed - get user readings
+GET http://localhost:3001/api/users/1
+
+### Try to mark someone else's reading list entry (should get 403)
+PUT http://localhost:3001/api/readinglists/1
+Content-Type: application/json
+Authorization: Bearer <other_users_token>
+
+{
+  "read": false
+}
+
+### Try without token (should get 401)
+PUT http://localhost:3001/api/readinglists/1
+Content-Type: application/json
+
+{
+  "read": false
+}

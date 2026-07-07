@@ -3,12 +3,15 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-  "username": "testUser2@gmail.com",
+  "username": "testUser1@gmail.com",
   "name": "testUser"
 }
 
 ### Get all users
 GET http://localhost:3001/api/users
+
+### Get user
+GET http://localhost:3001/api/users/1
 
 ### Change name
 PUT http://localhost:3001/api/users/testUser@gmail.com
