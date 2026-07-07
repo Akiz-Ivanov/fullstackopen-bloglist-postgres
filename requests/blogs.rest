@@ -43,3 +43,39 @@ Content-Type: application/json
 ### Delete a blog (change id if needed), paste token from login
 DELETE http://localhost:3001/api/blogs/1
 Authorization: Bearer <token>
+
+### Should fail - year too old
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer <your_token>
+
+{
+  "title": "Old blog",
+  "author": "Someone",
+  "url": "https://test.com",
+  "yearWritten": 1990
+}
+
+###  Should fail - year in future
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer <your_token>
+
+{
+  "title": "Future blog",
+  "author": "Someone",
+  "url": "https://test.com",
+  "yearWritten": 2099
+}
+
+### Should succeed
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer <your_token>
+
+{
+  "title": "Valid blog",
+  "author": "Someone",
+  "url": "https://test.com",
+  "yearWritten": 2024
+}
