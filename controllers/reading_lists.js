@@ -2,8 +2,16 @@ const router = require('express').Router()
 const { User, Blog, ReadingList } = require('../models')
 const { tokenExtractor, sessionValidator } = require('../util/middleware')
 
-router.post('/', tokenExtractor, sessionValidator, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
+    if (!req.body.blogId) {
+      return res.status(400).json({ error: "blogId is required" })
+    }
+
+    if (!req.body.userId) {
+      return res.status(400).json({ error: "userId is required" })
+    }
+
     const user = await User.findByPk(req.body.userId)
     const blog = await Blog.findByPk(req.body.blogId)
 
@@ -16,11 +24,16 @@ router.post('/', tokenExtractor, sessionValidator, async (req, res, next) => {
     }
 
     const readingList = await ReadingList.create({
-      userId: user.id,
-      blogId: blog.id,
+      userId: req.body.userId,
+      blogId: req.body.blogId,
     })
 
-    res.json(readingList)
+    res.json({
+      id: readingList.id,
+      blog_id: readingList.blogId,
+      user_id: readingList.userId,
+      read: readingList.read
+    })
   } catch (error) {
     next(error)
   }
@@ -35,7 +48,7 @@ router.put('/:id', tokenExtractor, sessionValidator, async (req, res, next) => {
     }
 
     if (req.decodedToken.id !== readingList.userId) {
-      return res.status(403).json({ error: 'only the user who owns this reading list entry can update it' })
+      return res.status(401).json({ error: 'only the user who owns this reading list entry can update it' })
     }
 
     if (typeof req.body.read !== 'boolean') {

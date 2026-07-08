@@ -37,6 +37,12 @@ ReadingList.init(
     underscored: true,
     timestamps: false,
     modelName: "reading_list",
+    indexes: [
+      {
+        unique: true,
+        fields: ['user_id', 'blog_id']
+      }
+    ]
   },
 )
 
